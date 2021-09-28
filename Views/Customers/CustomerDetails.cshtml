@@ -1,0 +1,10 @@
+﻿@model IEnumerable<JoeMovies.Models.Customer>
+@{
+    ViewBag.Title = "CustomerDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach(var customer in Model)
+{ 
+    <h1>@customer.Name</h1>
+}

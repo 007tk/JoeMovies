@@ -1,0 +1,34 @@
+﻿@model IEnumerable<JoeMovies.Models.Movie>
+@{
+    ViewBag.Title = "IndexMovies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Movies</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>
+                        @*@Html.ActionLink(customer.Name, "CustomerDetails", "Customers", new { Id = customer.Id }, null)*@
+                        @movie.Name
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>We dont have any movies yet.</p>
+}
+

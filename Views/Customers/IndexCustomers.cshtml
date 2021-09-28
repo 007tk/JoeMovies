@@ -1,0 +1,32 @@
+﻿@model IEnumerable<JoeMovies.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (Model.Any())
+{
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Customers</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(customer.Name, "CustomerDetails", "Customers", new { Id = customer.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else {
+    <p>We dont have any customers yet.</p>
+}
+
