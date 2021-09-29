@@ -1,10 +1,14 @@
-﻿@model IEnumerable<JoeMovies.Models.Customer>
+﻿@model JoeMovies.Models.Customer
 @{
     ViewBag.Title = "CustomerDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach(var customer in Model)
-{ 
-    <h1>@customer.Name</h1>
-}
+<h1>@Model.Name</h1>
+<ul>
+    <li>MembershipType: @Model.MembershipType.Name</li>
+    @if(Model.BirthDate.HasValue)
+    {
+        <li>Birthdate: @Model.BirthDate</li>
+    }
+</ul>

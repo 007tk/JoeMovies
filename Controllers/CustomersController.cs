@@ -32,9 +32,9 @@ namespace JoeMovies.Controllers
 
         public ActionResult CustomerDetails(int Id)
         {
-            var customer = _context.Customers.Where(c => c.Id == Id);
+            var customer = _context.Customers.Include(m => m.MembershipType).Where(c => c.Id == Id).FirstOrDefault();
 
-            if(customer.Any())
+            if(customer != null)
             {
                 return View(customer);
             }
