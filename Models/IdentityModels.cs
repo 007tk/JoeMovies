@@ -20,6 +20,9 @@ namespace JoeMovies.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        //Dbsets
+        public DbSet<Customer> Customers { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
