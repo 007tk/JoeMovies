@@ -11,7 +11,7 @@ namespace JoeMovies.Controllers
 {
     public class MoviesController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
@@ -53,13 +53,66 @@ namespace JoeMovies.Controllers
             return View(movies);
         }
 
-        public ActionResult MovieDetails(int Id)
+        public ActionResult MovieDetails(int id)
         {
-            var movie = _context.Movies.Include(g => g.Genre).Where(m => m.Id == Id).SingleOrDefault();
+            var movie = _context.Movies.Include(g => g.Genre).FirstOrDefault(m => m.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
 
             return View(movie);
         }
 
+        public ActionResult EditMovie(int id)
+        {
+            var movie = _context.Movies.FirstOrDefault(m => m.Id == id);
+
+            if (movie == null)
+                return HttpNotFound();
+        
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+                Movie = movie
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+        public ActionResult NewMovie()
+        {
+            var genres = _context.Genres.ToList();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SaveMovie(Movie movie)
+        {
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+
+                movieInDb.Name = movie.Name;
+                movieInDb.Genre = movie.Genre;
+                movieInDb.NumberInStock = movie.NumberInStock;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("IndexMovies","Movies");
+        }
         //public IEnumerable<Movie> GetMovies()
         //{
         //    return new List<Movie>
@@ -74,5 +127,8 @@ namespace JoeMovies.Controllers
         //{
         //    return Content(year + " " + month);
         //}
+
+
+        
     }
 }

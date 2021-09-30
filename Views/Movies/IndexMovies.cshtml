@@ -6,6 +6,9 @@
 
 <h2>Movies</h2>
 
+<p>
+    @Html.ActionLink("New Movie", "NewMovie", null, new { @class = "btn btn-primary" })
+</p>
 @if (Model.Any())
 {
     <table class="table table-bordered table-hover">
@@ -20,7 +23,7 @@
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(movie.Name, "MovieDetails", "Movies", new { Id = movie.Id }, null)
+                        @Html.ActionLink(movie.Name, "EditMovie", "Movies", new { Id = movie.Id }, null)
                     </td>
                     <td>
                         @movie.Genre.Name
