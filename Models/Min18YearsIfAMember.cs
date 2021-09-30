@@ -12,7 +12,7 @@ namespace JoeMovies.Models
         {
             var customer = (Customer)validationContext.ObjectInstance;
 
-            if(customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1)
+            if(customer.MembershipTypeId == MembershipType.unkown || customer.MembershipTypeId == MembershipType.payAsYouGo)
                 return ValidationResult.Success;
 
             if (customer.BirthDate == null)

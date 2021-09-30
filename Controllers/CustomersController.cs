@@ -37,6 +37,7 @@ namespace JoeMovies.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
 
@@ -44,6 +45,7 @@ namespace JoeMovies.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveCustomer(Customer customer)
         {
             if (!ModelState.IsValid)

@@ -16,5 +16,8 @@ namespace JoeMovies.Models
         public byte DurationInMonths { get; set; }
 
         public byte DiscountRate { get; set; }
+
+        public static readonly byte unkown = 0;
+        public static readonly byte payAsYouGo = 1;
     }
 }
