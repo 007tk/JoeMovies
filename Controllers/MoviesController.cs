@@ -24,27 +24,6 @@ namespace JoeMovies.Controllers
             _context.Dispose();
         }
         // GET: Movies
-        public ActionResult Random()
-        {
-            var movie = new Movie()
-            {
-                Name = "Ben 10"
-            };
-
-            var customers = new List<Customer>
-            {
-                new Customer { Name = "Customer 1" },
-                new Customer { Name = "Customer 2"}
-            };
-
-            var viewModel = new RandomMovieViewModel()
-            {
-                Movie = movie,
-                Customers = customers
-            };
-
-            return View(viewModel);
-        }
 
         public ActionResult IndexMovies()
         {
@@ -70,10 +49,14 @@ namespace JoeMovies.Controllers
             if (movie == null)
                 return HttpNotFound();
         
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
                 Genres = _context.Genres.ToList(),
-                Movie = movie
+                Id = movie.Id,
+                Name = movie.Name,
+                ReleaseDate = movie.ReleaseDate,
+                NumberInStock = movie.NumberInStock,
+                GenreId = movie.GenreId
             };
 
             return View("MovieForm", viewModel);
@@ -92,8 +75,19 @@ namespace JoeMovies.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveMovie(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
             if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now;

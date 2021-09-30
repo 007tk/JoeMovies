@@ -167,7 +167,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -222,6 +224,10 @@
     <Compile Include="Migrations\202109301909513_UpdateMovie.cs" />
     <Compile Include="Migrations\202109301909513_UpdateMovie.Designer.cs">
       <DependentUpon>202109301909513_UpdateMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109302122584_NewM.cs" />
+    <Compile Include="Migrations\202109302122584_NewM.Designer.cs">
+      <DependentUpon>202109302122584_NewM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -356,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109301909513_UpdateMovie.resx">
       <DependentUpon>202109301909513_UpdateMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109302122584_NewM.resx">
+      <DependentUpon>202109302122584_NewM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
