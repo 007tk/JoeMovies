@@ -29,7 +29,14 @@ namespace JoeMovies.Controllers
         {
             var movies = _context.Movies.Include(g => g.Genre).ToList();
 
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovies))
+            {
+                return View("IndexMovies",movies);
+            }
+            else
+            {
+                return View("ReadOnlyMovieList", movies);
+            }
         }
 
         public ActionResult MovieDetails(int id)
@@ -62,6 +69,7 @@ namespace JoeMovies.Controllers
             return View("MovieForm", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult NewMovie()
         {
             var genres = _context.Genres.ToList();
