@@ -49,6 +49,7 @@ namespace JoeMovies.Controllers
             return View(movie);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult EditMovie(int id)
         {
             var movie = _context.Movies.FirstOrDefault(m => m.Id == id);
@@ -84,6 +85,7 @@ namespace JoeMovies.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult SaveMovie(Movie movie)
         {
             if (!ModelState.IsValid)

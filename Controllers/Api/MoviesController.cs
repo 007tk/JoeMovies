@@ -21,11 +21,18 @@ namespace JoeMovies.Controllers.Api
         }
 
         //GET api/movies
-        public IEnumerable<MovieDto> GetMovies()
+        public IHttpActionResult GetMovies(string query = null)
         {
-            return _context.Movies.Include(m => m.Genre)
+            var moviesQuery = _context.Movies.Include(m => m.Genre);
+
+            if (!string.IsNullOrWhiteSpace(query))
+                moviesQuery = _context.Movies.Where(m => m.Name.Contains(query) && m.NumberAvailable > 0);
+
+            var movieDtos = moviesQuery   
                 .ToList()
                 .Select(Mapper.Map<Movie, MovieDto>);
+
+            return Ok(movieDtos);
         }
 
         //GET api/movies/{id}
@@ -41,6 +48,7 @@ namespace JoeMovies.Controllers.Api
 
         //POST api/movies
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -57,6 +65,7 @@ namespace JoeMovies.Controllers.Api
 
         //PUT api/movies/{id}
         [HttpPut]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -76,6 +85,7 @@ namespace JoeMovies.Controllers.Api
 
         //DELETE api/movies/{id}
         [HttpDelete]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IHttpActionResult RemoveMovie(int id)
         {
             var movieInDb = _context.Movies.FirstOrDefault(m => m.Id == id);

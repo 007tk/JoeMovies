@@ -26,6 +26,8 @@ namespace JoeMovies.Models
         [Range(1,20, ErrorMessage = "Number In stock should be between 1 and 20.")]
         public int NumberInStock { get; set; }
 
+        public int NumberAvailable { get; set; }
+
         public Genre Genre { get; set; }
 
         [Display(Name = "Genre")]
