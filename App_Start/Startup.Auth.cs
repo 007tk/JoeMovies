@@ -54,9 +54,9 @@ namespace JoeMovies
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "957379628183462",
+               appSecret: "ee3f5f18e7ae725db5d994e44f6b4220");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

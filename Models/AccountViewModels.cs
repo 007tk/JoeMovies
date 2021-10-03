@@ -65,6 +65,15 @@ namespace JoeMovies.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(255)]
+        [Display(Name = "Driving License")]
+        public string DrivingLicense { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string Phone { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
